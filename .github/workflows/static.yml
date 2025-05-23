@@ -1,1 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentFlow AI - Pitch Deck</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            width: 100%;
+            z-index: 1;
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #3b82f6;
+        }
+
+        p {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            line-height: 1.6;
+            color: #e5e5e5;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-slide {
+            text-align: center;
+        }
+
+        .tagline {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            color: #a855f7;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .cta {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: #a0a0a0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: #3b82f6;
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 3rem;
+            align-items: center;
+        }
+
+        .timeline-marker {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-right: 2rem;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 1.5rem;
+        }
+
+        .partnership-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 3rem;
+            align-items: start;
+        }
+
+        .partnership-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+        }
+
+        .partnership-section h4 {
+            color: #3b82f6;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .partnership-section ul {
+            list-style: none;
+        }
+
+        .partnership-section li {
+            padding: 0.75rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: #e5e5e5;
+            font-size: 1.1rem;
+        }
+
+        .partnership-section li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #a855f7;
+            font-weight: bold;
+        }
+
+        .metric-showcase {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 3rem;
+        }
+
+        .metric {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .metric-value {
+            font-size: 4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .metric-label {
+            font-size: 1.2rem;
+            color: #a0a0a0;
+            margin-top: 0.5rem;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #3b82f6 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .partnership-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .timeline-marker {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+
+        .slide-indicator {
+            position: fixed;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot:hover {
+            background: rgba(255, 255, 255, 0.6);
+        }
+
+        .next-slide {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #a855f7;
+            font-size: 2rem;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Slide 1: Title Slide -->
+    <div class="slide hero-slide">
+        <div class="slide-content">
+            <div class="logo">AgentFlow AI</div>
+            <h1>Democratizing AI for 25 Million European SMEs</h1>
+            <p class="tagline">The No-Code Platform That Makes AI Agents as Easy as Email</p>
+            <p style="margin-top: 3rem; font-size: 1.3rem;">Partnership Proposal for YOUNG</p>
+            <p style="color: #a0a0a0;">Zubeid Hendricks × YOUNG</p>
+        </div>
+        <div class="next-slide">↓</div>
+    </div>
+
+    <!-- Slide 2: The Problem -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>The €2.8 Trillion Problem</h2>
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">of SMEs can't access AI transformation</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">€100K+</div>
+                    <div class="stat-label">Annual cost of enterprise AI solutions</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">25M</div>
+                    <div class="stat-label">European SMEs struggling with manual processes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">72%</div>
+                    <div class="stat-label">Productivity gap vs AI-enabled enterprises</div>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 3rem; font-size: 1.4rem;">
+                While large enterprises leverage AI for competitive advantage,<br>
+                SMEs are left behind with tools that are either too complex or too basic.
+            </p>
+        </div>
+    </div>
+
+    <!-- Slide 3: The Solution -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Introducing AgentFlow AI</h2>
+            <p style="font-size: 1.6rem; text-align: center; margin-bottom: 3rem;">
+                Enterprise-Grade AI Automation Made Simple for SMEs
+            </p>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Visual Workflow Builder</h3>
+                    <p>Drag-and-drop AI agent creation. No coding required.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3>Pre-Built Business Agents</h3>
+                    <p>Ready-to-use agents for sales, finance, operations, and customer service.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔌</div>
+                    <h3>One-Click Integrations</h3>
+                    <p>Connect with existing CRM, ERP, email, and business tools instantly.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Self-Learning System</h3>
+                    <p>AI that learns and optimizes your business processes automatically.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>EU AI Act Compliant</h3>
+                    <p>Built-in compliance and data protection from day one.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>SME-Friendly Pricing</h3>
+                    <p>Starting at €99/month. 100x cheaper than enterprise solutions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Market Opportunity -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Why Now? The Perfect Storm</h2>
+            <div class="metric-showcase">
+                <div class="metric">
+                    <div class="metric-value">90%</div>
+                    <div class="metric-label">AI cost reduction in 2024</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">3.5x</div>
+                    <div class="metric-label">SME digital adoption post-COVID</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">€2.8T</div>
+                    <div class="metric-label">Total addressable market</div>
+                </div>
+            </div>
+            <div style="margin-top: 3rem; background: rgba(59, 130, 246, 0.1); border-radius: 20px; padding: 2rem;">
+                <h3 style="text-align: center;">Proven Technology Ready to Scale</h3>
+                <p style="text-align: center;">
+                    My open-source YouTube MCP Server (175+ GitHub stars) and Climate Action Orchestrator 
+                    demonstrate that multi-agent AI systems are production-ready for business deployment.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Partnership Synergy -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>The Power of Our Partnership</h2>
+            <div class="partnership-grid">
+                <div class="partnership-section">
+                    <h4>Zubeid Brings</h4>
+                    <ul>
+                        <li>Proven multi-agent AI architecture</li>
+                        <li>8+ years building scalable platforms</li>
+                        <li>2,116+ GitHub contributions</li>
+                        <li>Production AI systems with enterprise clients</li>
+                        <li>Cost-effective Cape Town development base</li>
+                    </ul>
+                </div>
+                <div class="partnership-section">
+                    <h4>YOUNG Brings</h4>
+                    <ul>
+                        <li>European SME market expertise</li>
+                        <li>Investor and partnership networks</li>
+                        <li>Go-to-market strategy experience</li>
+                        <li>EU regulatory navigation</li>
+                        <li>Proven startup scaling playbook</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1)); border-radius: 20px;">
+                <h3>Technical Excellence + Market Access = Market Leadership</h3>
+                <p>Our 50/50 partnership creates the perfect foundation for rapid European expansion</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Growth Roadmap -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>Path to €1M ARR in Year 1</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">Q1</div>
+                    <div class="timeline-content">
+                        <h3>MVP & Validation</h3>
+                        <p>Core engine + 5 essential agents → 10 beta customers → €10K MRR</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">Q2</div>
+                    <div class="timeline-content">
+                        <h3>Product-Market Fit</h3>
+                        <p>50+ integrations + 25 workflows → 100 customers → €50K MRR</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">Q3</div>
+                    <div class="timeline-content">
+                        <h3>Scale Foundation</h3>
+                        <p>Enterprise features + Partner channels → 500 customers → €200K MRR</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">Q4</div>
+                    <div class="timeline-content">
+                        <h3>Market Leadership</h3>
+                        <p>AI marketplace + Advanced automation → 2,000 customers → €1M ARR</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Investment Strategy -->
+    <div class="slide">
+        <div class="slide-content">
+            <h2>5-Year Vision: Building a Unicorn</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 3rem;">
+                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 2rem;">
+                    <h3>Year 1</h3>
+                    <p><strong>Bootstrap to €1M ARR</strong></p>
+                    <p>Initial YOUNG backing + Customer revenue</p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 2rem;">
+                    <h3>Year 2</h3>
+                    <p><strong>Series A: €5-10M</strong></p>
+                    <p>European market expansion</p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 2rem;">
+                    <h3>Year 3</h3>
+                    <p><strong>Series B: €20-50M</strong></p>
+                    <p>Global SME penetration</p>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 2rem;">
+                    <h3>Year 5</h3>
+                    <p><strong>Exit: €500M-1B+</strong></p>
+                    <p>European SME AI market leader</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <h3 style="color: #a855f7;">Our Competitive Advantages</h3>
+                <p>First-mover advantage • 60% cost structure benefit • Network effects from marketplace • Compliance-first approach</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8: Call to Action -->
+    <div class="slide hero-slide">
+        <div class="slide-content">
+            <h2>Let's Build the Future Together</h2>
+            <p style="font-size: 1.6rem; margin-bottom: 3rem;">
+                The opportunity to democratize AI for 25 million European SMEs is here.<br>
+                With YOUNG's market access and my AI expertise, we can capture it.
+            </p>
+            <div style="background: rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 3rem; margin-bottom: 3rem;">
+                <h3>Next Steps</h3>
+                <p>1. Deep-dive technical & business model session</p>
+                <p>2. Joint customer discovery with European SMEs</p>
+                <p>3. 30-day MVP demonstration</p>
+                <p>4. Formalize 50/50 partnership structure</p>
+            </div>
+            <p style="font-size: 1.3rem; color: #a855f7; margin-bottom: 2rem;">
+                "Let's make AI accessible to every European business"
+            </p>
+            <div style="margin-top: 2rem;">
+                <p><strong>Zubeid Hendricks</strong></p>
+                <p>zubeidhendricks@gmail.com | +27 63 220 5343</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-indicator">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <script>
+        // Smooth scrolling between slides
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                slides[index].scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Update active dot on scroll
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const currentSlide = Math.round(scrollPosition / windowHeight);
+            
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.style.background = 'rgba(255, 255, 255, 0.8)';
+                    dot.style.transform = 'scale(1.5)';
+                } else {
+                    dot.style.background = 'rgba(255, 255, 255, 0.3)';
+                    dot.style.transform = 'scale(1)';
+                }
+            });
+        });
+
+        // Next slide arrows
+        document.querySelectorAll('.next-slide').forEach(arrow => {
+            arrow.addEventListener('click', () => {
+                const currentSlide = Math.round(window.scrollY / window.innerHeight);
+                if (currentSlide < slides.length - 1) {
+                    slides[currentSlide + 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
